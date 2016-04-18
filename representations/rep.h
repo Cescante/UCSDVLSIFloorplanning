@@ -30,6 +30,7 @@ class FPRepresentation
         
     
     public:
+        FPRepresentation();
         FPRepresentation( int count, int dimensions, int area[] );
 };
 
@@ -46,10 +47,27 @@ class FPRepresentation
 class InternalRepresentation : public FPRepresentation
 {
     public:
+        InternalRepresentation();
         InternalRepresentation( int count, int dimensions, int area[] ); 
         virtual std::string ToGPL() =0;  
 };
 
+
+/**
+ * @brief
+ *
+ * The OrderLayer class.
+ *
+ * Show probably be in an internal header and use json.
+ */
+class OrderLayer
+{
+     public:
+        std::vector<int> end;
+        std::vector<int> start;
+
+        static std::vector<OrderLayer> ParseOrder( std::string spec );
+};
 
 /**
  * @brief
@@ -61,18 +79,9 @@ class InternalRepresentation : public FPRepresentation
 class PartialOrdering : public InternalRepresentation
 {
     protected:
-        class Layer
-        {
-            public:
-                std::vector<int> start;
-                std::vector<int> end;
-        };
-
-    protected:
-        std::vector<Layer> _xOrder;
-        std::vector<Layer> _yOrder;
-        std::vector<Layer> _zOrder;
-        std::vector<Layer> ParseOrder( std::string spec );
+        std::vector<OrderLayer> _xOrder;
+        std::vector<OrderLayer> _yOrder;
+        std::vector<OrderLayer> _zOrder;
 
     public:
         PartialOrdering( std::string spec );
@@ -84,5 +93,6 @@ class PartialOrdering : public InternalRepresentation
 
         // These should be in the base class.
         std::string Serialize();
-        static PartialOrdering* Deserialize( std::string spec );};
+        static PartialOrdering* Deserialize( std::string spec );
+};
 #endif
