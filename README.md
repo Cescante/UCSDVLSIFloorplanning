@@ -15,4 +15,11 @@ __*Work in progress*__
 
 ## Building
 ### Floorplan binary
+```
 bazel build //floorplan:Floorplan
+```
+### Tests
+1. Representation tests
+```
+bazel build //tests:rep_tests
+```

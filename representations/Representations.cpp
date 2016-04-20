@@ -8,7 +8,7 @@
  * @bug No known bugs.
  */
 
-#include"Utilities/Utilities.h"
+#include<Utilities/Utilities.h>
 
 #include"rep.h"
 
@@ -158,7 +158,7 @@ std::string Serialize( PartialOrdering inOrder )
  */
 PartialOrdering* PartialOrdering::Deserialize( std::string spec )
 {
-    PartialOrdering* newPOrdering =  new PartialOrdering(1, 2, (int[2]){3, 3});
+    PartialOrdering* newPOrdering =  new PartialOrdering(1, 2, NULL);
     
     throw "Not Implemented, spec: " + spec;
 
