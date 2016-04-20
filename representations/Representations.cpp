@@ -8,7 +8,7 @@
  * @bug No known bugs.
  */
 
-#include<Utilties/Utilities.h>
+#include"Utilities/Utilities.h"
 
 #include"rep.h"
 
@@ -34,12 +34,12 @@ InternalRepresentation::InternalRepresentation( int count, int dimensions,
  * @brief
  *
  * The ParseOrder function parses strings into OrderLayer representation.
+ *
+ * TODO error codes
  */
-std::vector<OrderLayer> OrderLayer::ParseOrder( std::string spec )
+int OrderLayer::ParseOrder( std::string spec, std::vector<OrderLayer> &outOrder )
 {
     spec = trim( spec );
-
-    std::vector<OrderLayer> ordering;
 
     std::vector<std::string> layers;
     layers = split( spec, '|', layers ); // get layers
@@ -58,6 +58,7 @@ std::vector<OrderLayer> OrderLayer::ParseOrder( std::string spec )
             throw "need to sets of nodes for a layer";
         }
 
+        // parse nodes and add new layer to output order.
         OrderLayer newLayer;
         std::vector<std::string> endNodes;
         endNodes = split( trim( nodes[0] ), ' ', endNodes );
@@ -74,9 +75,11 @@ std::vector<OrderLayer> OrderLayer::ParseOrder( std::string spec )
         {
             newLayer.end.push_back( std::stoi( trim( *idIter ) ) );
         }
+
+        outOrder.push_back( newLayer );
     }
             
-    return ordering;
+    return 0;
 }
 
 /**
@@ -89,6 +92,12 @@ PartialOrdering::PartialOrdering( std::string spec )
     throw "Not implemented, spec: " + spec;
 }
 
+PartialOrdering::PartialOrdering( int count, int dimensions, 
+        int area[] )
+        : InternalRepresentation( count, dimensions, area )
+{
+}
+
 /**
  * @brief
  *
@@ -99,12 +108,49 @@ std::string PartialOrdering::ToGPL()
     return "Not Implemented";
 }
 
-PartialOrdering::PartialOrdering( int count, int dimensions, 
-        int area[] )
-        : InternalRepresentation( count, dimensions, area )
+/**
+ * @brief
+ *
+ * xOrder mutator.
+ */
+int PartialOrdering::SetXOrder( std::string spec )
 {
+    return OrderLayer::ParseOrder( spec, _xOrder );
 }
- 
+
+/**
+ * @brief
+ *
+ * yOrder mutator.
+ *
+ */
+int PartialOrdering::SetYOrder( std::string spec )
+{
+    return OrderLayer::ParseOrder( spec, _yOrder );
+}
+
+/**
+ * @brief
+ *
+ * zOrder mutator.
+ */
+int PartialOrdering::SetZOrder( std::string spec )
+{
+    return OrderLayer::ParseOrder( spec, _zOrder );
+}
+
+/**
+ * @brief
+ *
+ * TODO
+ */
+std::string Serialize( PartialOrdering inOrder )
+{
+    inOrder.ToGPL();
+
+    return "Not Implemented";
+}
+
 /**
  * @brief
  *

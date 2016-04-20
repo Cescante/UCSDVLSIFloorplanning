@@ -27,7 +27,6 @@ class FPRepresentation
         int boxCount;
         int fpDimensions;
         int* fpArea;
-        
     
     public:
         FPRepresentation();
@@ -58,7 +57,7 @@ class InternalRepresentation : public FPRepresentation
  *
  * The OrderLayer class.
  *
- * Show probably be in an internal header and use json.
+ * TODO: Show probably be in an internal header and use json.
  */
 class OrderLayer
 {
@@ -66,7 +65,8 @@ class OrderLayer
         std::vector<int> end;
         std::vector<int> start;
 
-        static std::vector<OrderLayer> ParseOrder( std::string spec );
+        static int  ParseOrder( std::string spec,
+            std::vector<OrderLayer> &outOrder );
 };
 
 /**
@@ -87,12 +87,12 @@ class PartialOrdering : public InternalRepresentation
         PartialOrdering( std::string spec );
         PartialOrdering( int count, int dimensions, int area[] );
         std::string ToGPL() override;
-        void SetXOrder( std::string spec );
-        void SetYOrder( std::string spec );
-        void SetZOrder( std::string spec );
+        int SetXOrder( std::string spec );
+        int SetYOrder( std::string spec );
+        int SetZOrder( std::string spec );
 
         // These should be in the base class.
-        std::string Serialize();
+        std::string Serialize( PartialOrdering inOrder );
         static PartialOrdering* Deserialize( std::string spec );
 };
 #endif

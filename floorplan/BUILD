@@ -20,5 +20,8 @@ cc_binary(
     name = "Floorplan",
     srcs = ["Floorplan.cpp"],
     copts = fp_copts(), # need to use 
-    deps = [],
+    deps = [
+    	"//representations",
+    	"//Utilities"
+    ],
 )
