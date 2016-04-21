@@ -35,6 +35,8 @@ InternalRepresentation::InternalRepresentation( int count, int dimensions,
  *
  * The ParseOrder function parses strings into OrderLayer representation.
  *
+ * spec format: <end node> <end node> ..., <start node> <start node> | ...
+ *
  * TODO error codes
  */
 int OrderLayer::ParseOrder( std::string spec, std::vector<OrderLayer> &outOrder )

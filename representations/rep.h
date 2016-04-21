@@ -65,7 +65,7 @@ class OrderLayer
         std::vector<int> end;
         std::vector<int> start;
 
-        static int  ParseOrder( std::string spec,
+        static int ParseOrder( std::string spec,
             std::vector<OrderLayer> &outOrder );
 };
 

@@ -22,4 +22,6 @@ bazel build //floorplan:Floorplan
 1. Representation tests
 ```
 bazel build //tests:rep_tests
+bazel test //tests:rep_tests
+bazel test //tests:rep_tests --verbose_failures
 ```
