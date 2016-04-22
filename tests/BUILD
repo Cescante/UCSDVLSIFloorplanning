@@ -8,6 +8,7 @@ cc_test(
     deps  = [
         "@gtest//:main",
         "//representations",
+        "//Utilities",
     ],
     size = "small",
 )
