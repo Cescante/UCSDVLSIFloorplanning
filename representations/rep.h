@@ -74,6 +74,8 @@ class BlockRepresentation : public FPRepresentation
                 int fpDimensions;
                 int* position;
                 int* blockDimensions;
+                
+                ~Block();
         };
         std::vector<Block> all_blocks;
 

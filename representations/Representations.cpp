@@ -32,6 +32,12 @@ FPRepresentation::~FPRepresentation()
     delete[] fpVolumn;
 }
 
+BlockRepresentation::Block::~Block()
+{
+    delete[] position;
+    delete[] blockDimensions;
+}
+
 InternalRepresentation::InternalRepresentation( int count, int dimensions, 
         int volumn[] )
         : FPRepresentation( count, dimensions, volumn )
