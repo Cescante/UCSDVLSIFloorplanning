@@ -28,12 +28,11 @@ class FPRepresentation
     protected:
         int boxCount;
         int fpDimensions;
-        int* fpVolumn;
+        std::vector<int> fpVolume;
     
     public:
         FPRepresentation();
-        ~FPRepresentation();
-        FPRepresentation( int count, int dimensions, int volumn[] );
+        FPRepresentation( int count, int dimensions, int volume[] );
 };
 
 /**
@@ -50,7 +49,7 @@ class InternalRepresentation : public FPRepresentation
 {
     public:
         InternalRepresentation();
-        InternalRepresentation( int count, int dimensions, int volumn[] ); 
+        InternalRepresentation( int count, int dimensions, int volume[] ); 
         virtual std::string ToGPL() =0;  
 };
 
@@ -72,16 +71,14 @@ class BlockRepresentation : public FPRepresentation
             public:
                 int id;
                 int fpDimensions;
-                int* position;
-                int* blockDimensions;
-                
-                ~Block();
+                std::vector<int> position;
+                std::vector<int> blockDimensions;
         };
         std::vector<Block> all_blocks;
 
     public:
         // static const std::string cubeFileHeader;
-        BlockRepresentation( int count, int dimensions, int volumn[] );
+        BlockRepresentation( int count, int dimensions, int volume[] );
         void AddBlock( int id, int position[], int dimensions[] );
         std::string ToGPL();
 };
@@ -91,7 +88,7 @@ class BlockRepresentation : public FPRepresentation
  *
  * The OrderLayer class.
  *
- * TODO: Show probably be in an internal header and use json.
+ * TODO: Should probably be in an internal header and use json.
  */
 class OrderLayer
 {
@@ -103,7 +100,6 @@ class OrderLayer
             std::vector<OrderLayer> &outOrder );
         static void ToBlockSpec( OrderLayer layer, int boxCount, int axis,
             int layerCount, int pos[], int dim[] );
-
 };
 
 /**
@@ -125,7 +121,7 @@ class PartialOrdering : public InternalRepresentation
 
     public:
         // PartialOrdering( std::string spec );
-        PartialOrdering( int count, int dimensions, int volumn[] );
+        PartialOrdering( int count, int dimensions, int volume[] );
         std::string ToGPL() override;
         int SetXOrder( std::string spec );
         int SetYOrder( std::string spec );
@@ -134,5 +130,39 @@ class PartialOrdering : public InternalRepresentation
         // These should be in the base class.
         std::string Serialize( PartialOrdering inOrder );
         static PartialOrdering* Deserialize( std::string spec );
+};
+
+/**
+ * @brief
+ *
+ * The LinkedCorners class.
+ *
+ * TODO: Should probably be in an internal header and use json.
+ */
+class LinkedCorners
+{
+    public:
+        int id;
+        /* contains: (block id, corner of block).*/
+        std::vector<std::pair<int,int>> corners;
+};
+
+/**
+ * @brief
+ *
+ * The CornerLinks class.
+ *
+ * Implements the logic of a CornerLinks representation.
+ */
+class CornerLinks : public InternalRepresentation
+{
+    protected:
+        std::vector<LinkedCorners> _linksList;
+
+    public:
+        // CornerLinks( std::string spec );
+        CornerLinks( int count, int dimensions, int volume[] );
+        std::string ToGPL() override;
+        int SetCorners( std::string spec);
 };
 #endif

@@ -83,13 +83,13 @@ TEST( PartialOrderingTest, CubeGPLTest )
 {
     int boxCount = 1;
     int dim = 3;
-    int* volumn = new int[3];
+    int* volume = new int[3];
 
-    volumn[0] = 1;
-    volumn[1] = 1;
-    volumn[2] = 1;
+    volume[0] = 1;
+    volume[1] = 1;
+    volume[2] = 1;
 
-    PartialOrdering testPO( boxCount, dim, volumn );
+    PartialOrdering testPO( boxCount, dim, volume );
 
     testPO.SetXOrder( cubeX );
     testPO.SetYOrder( cubeY );
