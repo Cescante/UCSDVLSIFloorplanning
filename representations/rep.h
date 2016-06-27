@@ -88,6 +88,8 @@ class BlockRepresentation : public FPRepresentation
  *
  * The OrderLayer class.
  *
+ * Implements the logic for a layer in the PartialOrder representation.
+ *
  * TODO: Should probably be in an internal header and use json.
  */
 class OrderLayer
@@ -136,6 +138,9 @@ class PartialOrdering : public InternalRepresentation
  * @brief
  *
  * The LinkedCorners class.
+ *
+ * Implements the logic for a set of linked corners in the
+ * CornerLinks representation.
  *
  * TODO: Should probably be in an internal header and use json.
  */
