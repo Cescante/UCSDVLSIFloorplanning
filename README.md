@@ -11,6 +11,7 @@ __*Work in progress*__
 
 #### Prerequisits
 1. Bazel
+ 
 2. Doxygen
 
 ## Building

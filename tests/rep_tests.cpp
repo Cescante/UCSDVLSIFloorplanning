@@ -20,7 +20,7 @@ std::string ol_many = "1 2, 3 4 | 5 6, 7 8";
 std::string cubeX = ", 0 | 0, ";
 std::string cubeY = ", 0 | 0, ";
 std::string cubeZ = ", 0 | 0, ";
-std::string cubeGPL = "0 0 0 1 1 1 1";
+std::string cubeGPL = "0 0 0 0 1 1 1 1 1";
 
 TEST( OrderLayerTest, ParseEmpty )
 {

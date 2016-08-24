@@ -1,7 +1,0 @@
-# A vertex has 3 fields: x coordinate, y coordnate and the label
-# An edge consists of two points in consecutive lines
-# There must be one or more blank lines between each edge.
-
-21.53 9.55 2.73 -1.63
-5.63 3.23 -2.98 -1.46
-5.63 3.23 -1.36 3.81
