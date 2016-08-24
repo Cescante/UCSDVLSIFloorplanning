@@ -61,12 +61,14 @@ void BlockRepresentation::AddBlock( int id, int position[],
     }
 
     all_blocks.push_back( newBlock );
+
+    std::cout << "pushing back block " << newBlock.id << std::endl;
 }
 
 /**
  * @brief
  *
- * Output gnuplot block specifications.
+ * Output block plot specifications.
  */
 std::string BlockRepresentation::ToGPL()
 {
@@ -76,10 +78,11 @@ std::string BlockRepresentation::ToGPL()
     {
         char blkstr[256];
         Block currBlock = *blockIter;
-        sprintf( blkstr, "%d %d %d %d %d %d %d",
+        sprintf( blkstr, "%d %d %d %d %d %d %d %d %d", currBlock.id,
            currBlock.position[0], currBlock.position[1], currBlock.position[2],
            currBlock.blockDimensions[0], currBlock.blockDimensions[1],
-           currBlock.blockDimensions[2], (currBlock.id % COLOR_RANGE) + 1 );
+           currBlock.blockDimensions[2], (currBlock.id % COLOR_RANGE) + 1,
+           (currBlock.id % COLOR_RANGE) + 1 );
 
         gplOut = gplOut + blkstr + "\r\n";
     }
