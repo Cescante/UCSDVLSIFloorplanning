@@ -1,3 +1,5 @@
 /bazel-*
 *.swp
 /.ycm_extra_conf.pyc
+__py*
+*.idea

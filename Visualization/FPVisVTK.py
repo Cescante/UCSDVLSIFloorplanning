@@ -143,7 +143,7 @@ class BlockPlotter(object):
             w = block[4]
             l = block[5]
             h = block[6]
-            c_idx = block[7]
+            c_idx = block[7] - 1
             surfaces = make_surfaces(x, y, z, w, l, h, self.spacing)
             c = int_rgb(self.colors[c_idx])
             lc = int_rgb(self.lcolors[c_idx])
@@ -152,9 +152,7 @@ class BlockPlotter(object):
             for side in surfaces:
                 surface = surfaces[side]
                 (xs, ys, zs) = (self.scale[0] * surface[0], self.scale[1] * surface[1], self.scale[2] * surface[2])
-                mlab.mesh (xs, ys, zs,
-                    opacity=a,
-                    color=c )
+                mlab.mesh(xs, ys, zs, opacity=a, color=c)
 
         mlab.show()
 
