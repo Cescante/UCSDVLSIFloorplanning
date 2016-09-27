@@ -28,10 +28,11 @@ if __name__ == '__main__':
     filename = sys.argv[1]
     # filename = 'proofblocks.txt'
 
-    plotter = fvvtk.BlockPlotter(list(parse_csv(filename, delim=' ')), spacing=0.2, alpha=0.8)
+    plotter = fvvtk.BlockPlotter(list(parse_csv(filename, delim=' ')), spacing=0.05, alpha=0.8)
 
     plotter.set_alpha(1.0)
     plotter.set_colors(fvvtk.c_palette)
     plotter.set_lcolors(fvvtk.lc_palette)
 
     plotter.render()
+    plotter.plot_color_legend()
