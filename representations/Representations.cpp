@@ -126,6 +126,8 @@ int OrderLayer::ParseOrder( std::string spec, std::vector<OrderLayer> &outOrder 
             else
             {
                 throw "need two sets of nodes for a layer";
+                std::cout << "ParseOrder: need two sets of noes for a layer"
+                    << std::endl;
             }
         }
 
@@ -229,7 +231,7 @@ std::string PartialOrdering::ToGPL()
         OrderLayer::ToBlockSpec( _yOrder[l], boxCount, 1, l, pos, dim );
     }
 
-    for (size_t l = 0; l < _yOrder.size(); ++l)
+    for (size_t l = 0; l < _zOrder.size(); ++l)
     {
         OrderLayer::ToBlockSpec( _zOrder[l], boxCount, 2, l, pos, dim );
     }

@@ -9,12 +9,15 @@ Note: hard coded to 3d.
 
 import numpy as np
 from mayavi import mlab
+import matplotlib.patches as mpatches
+import matplotlib.pyplot as plt
 
 _NUMERALS = '0123456789abcdefABCDEF'
 _HEXDEC = {v: int(v, 16) for v in (x+y for x in _NUMERALS for y in _NUMERALS)}
 
-c_palette = ['ff4c4d', 'ce4c7d', 'ae559e', 'df866d', 'ffb66d', 'ffe7cf', 'cecece', '6d6d6d', '4c4c8e', '4c4cef']
+c_palette = ['ff3c3d', 'ae559e', 'ffb66d', 'f7ef6a', 'ffe7cf', '9e9e9e', '88d317', '007849', '66b9bf', '4c4cef']
 lc_palette = ['ff2727', 'b90046', '8b0b74', 'd1512e', 'ff972f', 'ffddba', 'b9b9b9', '2e2e2e', '00005d', '0000e8']
+
 
 
 def int_rgb(triplet):
@@ -27,7 +30,6 @@ def text_coords(l, m, n):
 
 def text_values(array, l, m, n):
     return str(array[l, m, n])
-
 
 def make_surfaces(x, y, z, w, l, h, s):
     """ Create a set of surfaces for a block in 3 dimensions. """
@@ -111,7 +113,7 @@ class BlockPlotter(object):
         self.spacing = spacing
         return self.spacing
 
-    def render(self, blocks=None, text=None, azim=-15, elev=15):
+    def render(self, blocks=None, text=None,):
         """
         Main routine for generating block plot using matplotlib.
 
@@ -143,7 +145,7 @@ class BlockPlotter(object):
             w = block[4]
             l = block[5]
             h = block[6]
-            c_idx = block[7]
+            c_idx = block[7] - 1
             surfaces = make_surfaces(x, y, z, w, l, h, self.spacing)
             c = int_rgb(self.colors[c_idx])
             lc = int_rgb(self.lcolors[c_idx])
@@ -152,11 +154,36 @@ class BlockPlotter(object):
             for side in surfaces:
                 surface = surfaces[side]
                 (xs, ys, zs) = (self.scale[0] * surface[0], self.scale[1] * surface[1], self.scale[2] * surface[2])
-                mlab.mesh (xs, ys, zs,
-                    opacity=a,
-                    color=c )
+                mlab.mesh(xs, ys, zs, opacity=a, color=c)
 
         mlab.show()
+
+    def plot_color_legend(self, blocks=None):
+        if not blocks:
+            blocks = self.blocks_
+
+        bn = len(blocks)
+
+        if bn != len(self.blocks_):
+            self.reset(blocks)
+
+        patch_handles = []
+        for idx, block in enumerate(blocks):
+            label = block[0]
+            x = block[1]
+            y = block[2]
+            z = block[3]
+            w = block[4]
+            l = block[5]
+            h = block[6]
+            c_idx = block[7] - 1
+            c = int_rgb(self.colors[c_idx])
+            lc = int_rgb(self.lcolors[c_idx])
+            block_patch = mpatches.Patch(color=c, label=label)
+            patch_handles.append(block_patch)
+
+        plt.legend(handles=patch_handles)
+        plt.show()
 
 
 if __name__ == '__main__':
@@ -170,3 +197,5 @@ if __name__ == '__main__':
     plotter.set_colors(c_palette)
     plotter.set_lcolors(lc_palette)
     plotter.render()
+
+    plotter.plot_color_legend()

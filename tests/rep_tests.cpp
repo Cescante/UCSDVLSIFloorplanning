@@ -22,6 +22,13 @@ std::string cubeY = ", 0 | 0, ";
 std::string cubeZ = ", 0 | 0, ";
 std::string cubeGPL = "0 0 0 0 1 1 1 1 1";
 
+std::string cubeXlong = ", 7 9 10 | 9 , 11 | , 1 2 6 | 1 2 6 7 , 0 3 4 5 | "
+    "0 3 4, | 10 , 8 | 5 8 11 , ";
+std::string cubeYlong = ", 0 2 4 | 2 , 1 | , 7 8 10 | 4 7 8 10 , 5 6 9 11 | "
+    "5 9 11 , | 0 , 3 | 1 3 6 , ";
+std::string cubeZlong = ", 0 1 2 3 | 0 1 , | , 4 5 6 7 8 9 | "
+    " 2 3 4 5 6 7 8 , |, 10 11 | 8 9 10 11 , ";
+
 TEST( OrderLayerTest, ParseEmpty )
 {
     std::vector<OrderLayer> testOL;
@@ -100,3 +107,33 @@ TEST( PartialOrderingTest, CubeGPLTest )
 
     ASSERT_EQ( cubeGPL, gplOut );
 }
+
+TEST( GeneralTest, PartialtoCubeTest )
+{
+    int boxCount = 12;
+    int dim = 3;
+    int* volume = new int[3];
+
+    volume[0] = 6;
+    volume[1] = 6;
+    volume[2] = 5;
+
+    std::vector<OrderLayer> testLongXOL;
+    std::vector<OrderLayer> testLongYOL;
+    std::vector<OrderLayer> testLongZOL;
+
+    OrderLayer::ParseOrder( cubeXlong, testLongXOL );
+    EXPECT_EQ( testLongXOL.size(), volume[0] + 1 )
+        << "Long X parse dimension correct";
+
+    OrderLayer::ParseOrder( cubeYlong, testLongYOL );
+    EXPECT_EQ( testLongYOL.size(), volume[1] + 1)
+        << " Long Y parse dimension correct";
+
+    OrderLayer::ParseOrder( cubeZlong, testLongZOL );
+    EXPECT_EQ( testLongZOL.size(), volume[2] + 1) 
+        << " Long Z parse dimension correct";
+
+    PartialOrdering testLongPO( boxCount, dim, volume );
+}
+
