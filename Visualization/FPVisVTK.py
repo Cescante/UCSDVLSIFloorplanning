@@ -15,7 +15,8 @@ import matplotlib.pyplot as plt
 _NUMERALS = '0123456789abcdefABCDEF'
 _HEXDEC = {v: int(v, 16) for v in (x+y for x in _NUMERALS for y in _NUMERALS)}
 
-c_palette = ['ff3c3d', 'ae559e', 'ffb66d', 'f7ef6a', 'ffe7cf', '9e9e9e', '88d317', '007849', '66b9bf', '4c4cef']
+# c_palette = ['ff3c3d', 'ae559e', 'ffb66d', 'f7ef6a', 'ffe7cf', '9e9e9e', '88d317', '007849', '66b9bf', '4c4cef']
+c_palette = ['ff4c4d', 'ce4c7d', 'ae559e', 'df866d', 'ffb66d', 'ffe7cf', 'cecece', '6d6d6d', '4c4c8e', '4c4cef']
 lc_palette = ['ff2727', 'b90046', '8b0b74', 'd1512e', 'ff972f', 'ffddba', 'b9b9b9', '2e2e2e', '00005d', '0000e8']
 
 
@@ -150,6 +151,8 @@ class BlockPlotter(object):
             c = int_rgb(self.colors[c_idx])
             lc = int_rgb(self.lcolors[c_idx])
             a = self.alphas[0]
+            # if label == 'c':
+            #    a = 0.5
 
             for side in surfaces:
                 surface = surfaces[side]
